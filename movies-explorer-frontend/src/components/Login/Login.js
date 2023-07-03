@@ -68,7 +68,7 @@ const Login = ({ onLogin, onLoading }) => {
           className={`login__button-edit ${
             !isFormValid ? "login__button-edit--disabled" : ""
           }`}
-          disabled={!isFormValid}
+          disabled={!isFormValid || onLoading}
         >
           {onLoading ? "Вход..." : "Войти"}
         </button>

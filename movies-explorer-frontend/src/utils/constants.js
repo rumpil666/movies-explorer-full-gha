@@ -1,13 +1,13 @@
 export const DEVICE = {
   desktop: {
-    minWidth: 1139,
+    minWidth: 769,
     cards: {
       total: 12,
       add: 3,
     },
   },
   tablet: {
-    minWidth: 707,
+    minWidth: 481,
     cards: {
       total: 8,
       add: 2,
@@ -21,3 +21,5 @@ export const DEVICE = {
     },
   },
 };
+
+export const DURATION = 40;

@@ -87,6 +87,11 @@
     cursor: pointer;
 }
 
+.profile__button-edit:disabled {
+    color: var(--color-font-2);
+    cursor: auto;
+}
+
 .profile__button-exit {
     cursor: pointer;
     border: none;

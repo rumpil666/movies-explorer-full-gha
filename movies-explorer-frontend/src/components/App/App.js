@@ -1,5 +1,11 @@
 import { useState, useEffect } from "react";
-import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
+import {
+  Route,
+  Routes,
+  useNavigate,
+  Navigate,
+  useLocation,
+} from "react-router-dom";
 
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
@@ -38,7 +44,7 @@ function App() {
   const currentLocation = useLocation();
 
   const handleAccordionBtnClick = () => setIsAccordionOpen(!isAccordionOpen);
-  const handleBackBtnClick = () => navigate(-1);
+  const handleBackBtnClick = () => (navigate("/"));
 
   const checkElementRoute = (routesArr) =>
     routesArr.some((route) => route === currentLocation.pathname);
@@ -57,7 +63,7 @@ function App() {
           isSuccess: true,
           message: "Регистрация успешна",
         });
-        navigate("/signin");
+        handleAuthorization(data);
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
@@ -91,7 +97,8 @@ function App() {
           isOpen: true,
           isSuccess: false,
           message: "Что-то пошло не так, попробуйте снова",
-        }).finally(() => {
+        })
+        .finally(() => {
           setIsLoading(false);
         });
       });
@@ -100,7 +107,7 @@ function App() {
   function handleSignOut() {
     setIsLoggedIn(false);
     localStorage.clear();
-    navigate("/signin", { replace: true });
+    navigate("/", { replace: true });
   }
 
   const handleTokenCheck = () => {
@@ -120,6 +127,7 @@ function App() {
   };
 
   const handleEditProfile = async (newData) => {
+    setIsLoading(true);
     await mainApi
       .setUserInfo(newData)
       .then((data) => {
@@ -141,6 +149,9 @@ function App() {
               : "Упс, что-то пошло не так, попробуйте снова"
           }`,
         });
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -223,13 +234,24 @@ function App() {
           <Route
             path="/signin"
             element={
-              <Login onLogin={handleAuthorization} onLoading={isLoading} />
+              isLoggedIn ? (
+                <Navigate to="/" replace />
+              ) : (
+                <Login onLogin={handleAuthorization} onLoading={isLoading} />
+              )
             }
           />
           <Route
             path="/signup"
             element={
-              <Register onRegister={handleRegisration} onLoading={isLoading} />
+              isLoggedIn ? (
+                <Navigate to="/" replace />
+              ) : (
+                <Register
+                  onRegister={handleRegisration}
+                  onLoading={isLoading}
+                />
+              )
             }
           />
           <Route path="/" element={<Main />} />
@@ -250,6 +272,7 @@ function App() {
                 <SavedMovies
                   onDelete={handleMovieDelete}
                   userMovies={isUserSavedMovies}
+                  updateMoviesAfterDel={updatedUserMovieList}
                 />
               }
             />
@@ -259,6 +282,7 @@ function App() {
                 <Profile
                   onSignOut={handleSignOut}
                   onSubmit={handleEditProfile}
+                  onLoading={isLoading}
                 />
               }
             />

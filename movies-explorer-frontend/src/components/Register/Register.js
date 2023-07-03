@@ -86,7 +86,7 @@ const Register = ({ onRegister, onLoading }) => {
           className={`register__button-edit ${
             !isFormValid ? "register__button-edit--disabled" : ""
           }`}
-          disabled={!isFormValid}
+          disabled={!isFormValid || onLoading}
         >
           {onLoading ? "Регистрация..." : "Зарегистрироваться"}
         </button>

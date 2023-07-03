@@ -3,7 +3,7 @@ import { useContext, useEffect } from "react";
 import useFormValidation from "../../hooks/UseFormValidation";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-const Profile = ({ onSignOut, onSubmit }) => {
+const Profile = ({ onSignOut, onSubmit, onLoading }) => {
   const currentUser = useContext(CurrentUserContext);
   const { enteredValues, errors, handleChange, isFormValid, resetForm } =
     useFormValidation();
@@ -11,6 +11,11 @@ const Profile = ({ onSignOut, onSubmit }) => {
   useEffect(() => {
     currentUser ? resetForm(currentUser) : resetForm();
   }, [resetForm, currentUser]);
+
+  const isValidationField =
+    !isFormValid ||
+    (currentUser.name === enteredValues.name &&
+      currentUser.email === enteredValues.email);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -62,7 +67,12 @@ const Profile = ({ onSignOut, onSubmit }) => {
           )}
         </form>
         <div className="profile__buttons-container">
-          <button form="submit" type="submit" className="profile__button-edit">
+          <button
+            form="submit"
+            type="submit"
+            className="profile__button-edit"
+            disabled={isValidationField || onLoading}
+          >
             Редактировать
           </button>
           <button

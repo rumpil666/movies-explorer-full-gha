@@ -9,7 +9,7 @@ import { filterMoviesSearch, filterShortMovies } from "../../utils/utilities";
 
 import "./SavedMovies.css";
 
-const SavedMovies = ({ userMovies, onDelete }) => {
+const SavedMovies = ({ userMovies, onDelete, updateMoviesAfterDel }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isShortMovies, setIsShortMovies] = useState(false);
   const [isLocalMovieList, setIsLocalMovieList] = useState(userMovies);
@@ -35,14 +35,13 @@ const SavedMovies = ({ userMovies, onDelete }) => {
       setIsErrorMessage({ isShown: true, message: "Ничего не найдено" });
     } else {
       setIsLocalMovieList(moviesRender);
-      setIsFiltredMovies(moviesRender);
+      setIsFiltredMovies(isShortMovies ? filterShortMovies(moviesRender) : moviesRender);
     }
     setIsLoading(false);
   };
 
   const handleCheckboxBtnClick = () => {
     setIsShortMovies(!isShortMovies);
-    console.log(isLocalMovieList);
     !isShortMovies
       ? setIsFiltredMovies(filterShortMovies(isLocalMovieList))
       : setIsFiltredMovies(isLocalMovieList);
@@ -73,11 +72,12 @@ const SavedMovies = ({ userMovies, onDelete }) => {
           isShown: false,
           message: "",
         });
-  }, [userMovies, currentUser]);
+  }, [userMovies, currentUser, updateMoviesAfterDel]);
 
   return (
     <main className="saved-movies">
       <SearchForm
+        setIsErrorMessage={setIsErrorMessage}
         onSearch={handleSearchBtn}
         isShortMovies={isShortMovies}
         onFilterCheckbox={handleCheckboxBtnClick}

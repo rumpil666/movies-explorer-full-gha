@@ -32,7 +32,6 @@ const Movies = ({ onLike, onDelete, userMovies }) => {
     const moviesRender = filterMoviesSearch(
       moviesData,
       searchQuery,
-      moviesCheckbox
     );
 
     if (moviesRender.length === 0) {
@@ -95,6 +94,7 @@ const Movies = ({ onLike, onDelete, userMovies }) => {
       `${currentUser.email} - isShortMovies`,
       !isShortMovies
     );
+    console.log(isLocalMovieList);
   };
 
   useEffect(() => {
