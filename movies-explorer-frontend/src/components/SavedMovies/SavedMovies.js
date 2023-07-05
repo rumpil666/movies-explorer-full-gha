@@ -28,7 +28,6 @@ const SavedMovies = ({ userMovies, onDelete, updateMoviesAfterDel }) => {
     const moviesRender = filterMoviesSearch(
       userMovies,
       inputValue,
-      isShortMovies
     );
 
     if (moviesRender.length === 0) {
@@ -72,7 +71,7 @@ const SavedMovies = ({ userMovies, onDelete, updateMoviesAfterDel }) => {
           isShown: false,
           message: "",
         });
-  }, [userMovies, currentUser, updateMoviesAfterDel]);
+  }, [userMovies, currentUser]);
 
   return (
     <main className="saved-movies">
@@ -84,6 +83,7 @@ const SavedMovies = ({ userMovies, onDelete, updateMoviesAfterDel }) => {
         setIsFiltredMovies={setIsFiltredMovies}
         userMovies={userMovies}
         setIsLocalMovieList={setIsLocalMovieList}
+        updateMoviesAfterDel={updateMoviesAfterDel}
       />
       {isLoading ? (
         <Preloader />

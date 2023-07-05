@@ -44,7 +44,6 @@ function App() {
   const currentLocation = useLocation();
 
   const handleAccordionBtnClick = () => setIsAccordionOpen(!isAccordionOpen);
-  const handleBackBtnClick = () => (navigate("/"));
 
   const checkElementRoute = (routesArr) =>
     routesArr.some((route) => route === currentLocation.pathname);
@@ -287,7 +286,7 @@ function App() {
               }
             />
           </Route>
-          <Route path="*" element={<Error404 onClick={handleBackBtnClick} />} />
+          <Route path="*" element={<Error404 />} />
         </Routes>
         {checkElementRoute(footerRoutesArr) && <Footer />}
         <InfoTooltip

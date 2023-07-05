@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import useFormValidation from "../../hooks/UseFormValidation";
-import { filterShortMovies } from "../../utils/utilities";
+import { filterMoviesSearch, filterShortMovies } from "../../utils/utilities";
 
 import "./SearchForm.css";
 
@@ -15,6 +15,7 @@ const SearchForm = ({
   setIsFiltredMovies,
   userMovies,
   setIsLocalMovieList,
+  updateMoviesAfterDel,
 }) => {
   const currentUser = useContext(CurrentUserContext);
   const currentLocation = useLocation();
@@ -55,6 +56,13 @@ const SearchForm = ({
       });
     }
   }, [enteredValues]);
+
+  useEffect(() => {
+    if ("/saved-movies" && enteredValues.search && userMovies) {
+      setIsFiltredMovies(filterMoviesSearch(userMovies, enteredValues.search));
+      console.log(userMovies);
+    }
+  }, [userMovies, updateMoviesAfterDel]);
 
   return (
     <section className="search">

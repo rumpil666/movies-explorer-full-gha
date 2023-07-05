@@ -8,7 +8,7 @@ const router = require('./routes');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const cors = require('./middlewares/cors');
 const config = require('./utils/config');
-// const limiter = require('./middlewares/rateLimite');
+const limiter = require('./middlewares/rateLimite');
 
 const app = express();
 
@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(requestLogger);
 app.use(helmet());
-// app.use(limiter);
+app.use(limiter);
 app.use(router);
 app.use(errorLogger);
 app.use(errors());

@@ -3,13 +3,14 @@ import { useLocation } from "react-router-dom";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import { DEVICE } from "../../utils/constants";
 import { findLikeMovies } from "../../utils/utilities";
-import useWindowWidth from 'react-hook-use-window-width';
+import {useWindowWidth} from '../../hooks/useWindowWidth';
 
 import "./MoviesCardList.css";
 
 const MoviesCardList = ({ filtredMovieList, userMovies, onLike, onDelete }) => {
   const { desktop, tablet, phone } = DEVICE;
   const [isDefaultMovies, setIsDefaultMovies] = useState(desktop.cards);
+  const [isMount, setIsMount] = useState(true);
   const [movies, setMovies] = useState([]);
   const currentLocation = useLocation();
   const width = useWindowWidth();
@@ -31,17 +32,18 @@ const MoviesCardList = ({ filtredMovieList, userMovies, onLike, onDelete }) => {
   }, [filtredMovieList]);
 
   useEffect(() => {
-    if (window.width <= tablet.minWidth) {
+    if (width <= tablet.minWidth) {
       setIsDefaultMovies(phone.cards);
     } else if (
-      tablet.minWidth <= window.width &&
-      window.width <= desktop.minWidth
+      tablet.minWidth <= width &&
+      width <= desktop.minWidth
     ) {
       setIsDefaultMovies(tablet.cards);
     } else {
       setIsDefaultMovies(desktop.cards);
     }
-  }, []);
+    return () => setIsMount(false);
+  }, [width]);
 
   return (
     <section className="movies-card-list">
