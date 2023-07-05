@@ -19,8 +19,7 @@ const SearchForm = ({
 }) => {
   const currentUser = useContext(CurrentUserContext);
   const currentLocation = useLocation();
-  const { enteredValues, handleChange, isFormValid } =
-    useFormValidation();
+  const { enteredValues, handleChange, isFormValid } = useFormValidation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -48,7 +47,9 @@ const SearchForm = ({
 
   useEffect(() => {
     if (currentLocation.pathname === "/saved-movies" && !enteredValues.search) {
-      setIsFiltredMovies(isShortMovies ? filterShortMovies(userMovies) : userMovies);
+      setIsFiltredMovies(
+        isShortMovies ? filterShortMovies(userMovies) : userMovies
+      );
       setIsLocalMovieList(userMovies);
       setIsErrorMessage({
         isShown: false,
@@ -59,10 +60,25 @@ const SearchForm = ({
 
   useEffect(() => {
     if ("/saved-movies" && enteredValues.search && userMovies) {
-      setIsFiltredMovies(filterMoviesSearch(userMovies, enteredValues.search));
+      setIsFiltredMovies(
+        isShortMovies
+          ? filterShortMovies(
+              filterMoviesSearch(userMovies, enteredValues.search)
+            )
+          : filterMoviesSearch(userMovies, enteredValues.search)
+      );
       console.log(userMovies);
     }
   }, [userMovies, updateMoviesAfterDel]);
+
+  useEffect(() => {
+    if ("/saved-movies" && !enteredValues.search && updateMoviesAfterDel) {
+      setIsFiltredMovies(
+        isShortMovies ? filterShortMovies(userMovies) : userMovies
+      );
+      setIsLocalMovieList(userMovies);
+    }
+  }, [userMovies, updateMoviesAfterDel, enteredValues]);
 
   return (
     <section className="search">

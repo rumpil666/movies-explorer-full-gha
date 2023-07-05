@@ -9,7 +9,7 @@ import "./MoviesCardList.css";
 
 const MoviesCardList = ({ filtredMovieList, userMovies, onLike, onDelete }) => {
   const { desktop, tablet, phone } = DEVICE;
-  const [isDefaultMovies, setIsDefaultMovies] = useState(desktop.cards);
+  const [isDefaultMovies, setIsDefaultMovies] = useState({total: Number.MAX_VALUE});
   const [movies, setMovies] = useState([]);
   const currentLocation = useLocation();
   const width = useWindowWidth();
@@ -31,6 +31,7 @@ const MoviesCardList = ({ filtredMovieList, userMovies, onLike, onDelete }) => {
   }, [filtredMovieList]);
 
   useEffect(() => {
+    if (currentLocation.pathname === "/movies") {
     if (width <= tablet.minWidth) {
       setIsDefaultMovies(phone.cards);
     } else if (
@@ -41,6 +42,7 @@ const MoviesCardList = ({ filtredMovieList, userMovies, onLike, onDelete }) => {
     } else {
       setIsDefaultMovies(desktop.cards);
     }
+  }
   }, [width]);
 
   return (

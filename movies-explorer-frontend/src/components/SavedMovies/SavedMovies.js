@@ -71,7 +71,7 @@ const SavedMovies = ({ userMovies, onDelete, updateMoviesAfterDel }) => {
           isShown: false,
           message: "",
         });
-  }, [userMovies, currentUser]);
+  }, [currentUser]);
 
   return (
     <main className="saved-movies">
