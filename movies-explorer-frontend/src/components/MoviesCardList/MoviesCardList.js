@@ -10,7 +10,6 @@ import "./MoviesCardList.css";
 const MoviesCardList = ({ filtredMovieList, userMovies, onLike, onDelete }) => {
   const { desktop, tablet, phone } = DEVICE;
   const [isDefaultMovies, setIsDefaultMovies] = useState(desktop.cards);
-  const [isMount, setIsMount] = useState(true);
   const [movies, setMovies] = useState([]);
   const currentLocation = useLocation();
   const width = useWindowWidth();
@@ -42,7 +41,6 @@ const MoviesCardList = ({ filtredMovieList, userMovies, onLike, onDelete }) => {
     } else {
       setIsDefaultMovies(desktop.cards);
     }
-    return () => setIsMount(false);
   }, [width]);
 
   return (
