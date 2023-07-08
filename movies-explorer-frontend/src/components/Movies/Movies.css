@@ -1,0 +1,8 @@
+.movies {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--color-back-main);
+    width: 100%;
+    max-width: 1280px;
+}

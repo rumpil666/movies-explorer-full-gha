@@ -1,0 +1,103 @@
+.portfolio {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 1280px;
+    width: 100%;
+    padding: 50px 70px 125px;
+    background-color: var(--color-back-main);
+    box-sizing: border-box;
+}
+
+.portfolio__title {
+    margin: 0 0 50px;
+    align-self: flex-start;
+    max-width: 250px;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 20px;
+    color: var(--color-font-2);
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.portfolio__list {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    gap: 20px;
+}
+
+.portfolio__item {
+    display: flex;
+    padding: 0 0 19px;
+    box-sizing: border-box;
+    border-bottom: 1px solid var(--color-line-2);
+}
+
+.portfolio__link {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 50px;
+    letter-spacing: -0.04em;
+    color: var(--color-font-main);
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.portfolio__link:hover {
+    opacity: 0.5;
+}
+
+.portfolio__link::after {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    content: '';
+    transform: translateY(-50%);
+    background-image: url('../../images/arrow-link.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 18px;
+    width: 24px;
+}
+
+.portfolio__item:last-child {
+    border-bottom: none;
+}
+
+@media screen and (max-width: 769px) {
+    .portfolio {
+        padding: 50px 50px 71px;
+    }
+
+    .portfolio__link {
+        font-size: 28px;
+    }
+}
+
+@media screen and (max-width: 321px) {
+    .portfolio {
+        padding: 70px 14px 70px;
+        background-color: var(--color-back-main);
+        box-sizing: border-box;
+    }
+
+    .portfolio__title {
+        margin: 0 0 40px;
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    .portfolio__link {
+        font-size: 18px;
+        line-height: 28px;
+    }
+}

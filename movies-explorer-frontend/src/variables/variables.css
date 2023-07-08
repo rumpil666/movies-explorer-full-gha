@@ -1,0 +1,22 @@
+:root {
+    --color-background: #000;
+    --color-back-main: #FAFAFA;
+    --color-back-main-2: #3456F3;
+    --color-back-landing: #DDDEE3;
+    --color-back-tech: #F5F5F5;
+    --color-back-landing-5: #F2F2F2;
+    --color-checkbox: #2BE080;
+    --color-search: #fff;
+    --color-font-main: #000;
+    --color-font-2: #A0A0A0;
+    --color-font-button: #fff;
+    --color-font-link: #3456F3;
+    --color-font-error: #EE3465;
+    --color-line: #000000;
+    --color-line-2: #E8E8E8;
+    --color-line-3: #CBCBCB;
+    --color-line-4: #3456F3;
+    --color-icon: #E8E8E8;
+    --color-back-icon: #f4f4f4;
+    --font-main: 'Inter', Arial, sans-serif;
+}
